@@ -1,5 +1,5 @@
 spring:
   mongodb:
     host: localhost
-    port: 27017 #??db ?? ??
+    port: 27017 #mongoDB basic Port number
     database: chatdb
