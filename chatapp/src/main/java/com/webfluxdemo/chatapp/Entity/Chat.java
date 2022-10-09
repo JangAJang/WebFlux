@@ -7,14 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Data
-@Document(collection = "CHAT")
+@Document(collection = "chat")
 public class Chat {
 
     @Id
     private String id;
     private String msg;
     private String sender;
-    private String reveiver;
+    private String receiver;
 
     private LocalDateTime createdAt;
 }
