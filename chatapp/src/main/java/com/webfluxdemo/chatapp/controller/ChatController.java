@@ -17,12 +17,14 @@ public class ChatController {
 
     private final ChatRepository chatRepository;
 
-    @GetMapping(value = "/find", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @CrossOrigin
+    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Chat> getMsg(@RequestParam("sender") String sender, @RequestParam("receiver")String receiver){
         return chatRepository.findBySenderAndReceiver(sender, receiver)
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
+    @CrossOrigin
     @PostMapping("/chat")
     public Mono<Chat> setMsg(@RequestBody Chat chat){
         chat.setCreatedAt(LocalDateTime.now());
