@@ -13,12 +13,29 @@ function getSendMessageBox(msg, time){
     </div>`;
 }
 
-function addSendMessage(){
+async function addSendMessage(){
     let chatBox = document.querySelector("#chat-box");
     let msgInputBox = document.querySelector("#chat-outgoing-msg");
     let chatOutgoingBox = document.createElement("div");
     let date = new Date();
     let now = date.getHours() + ":" + date.getMinutes() + " | Today";
+
+    let chat = {
+        sender : "adidas",
+        receiver : "nike",
+        msg : msgInputBox.value
+    }
+
+    let response = await fetch("http://localhost:8080/chat", {
+        method: "post",
+        body: JSON.stringify(chat),
+        headers:{
+            "Content-Type":"application/json; charset=utf-8"
+        }
+    });
+    //console.log(response);
+    let parseResponse = await response.json();
+
     chatOutgoingBox.className = "outgoing_msg"
     chatOutgoingBox.innerHTML = getSendMessageBox(msgInputBox.value, now);
     chatBox.append(chatOutgoingBox);
