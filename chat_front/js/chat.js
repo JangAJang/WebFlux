@@ -1,8 +1,17 @@
-const eventSource = new EventSource("http://localhost:8080/chat?sender=adidas&receiver=nike");
+let username = prompt("아이디를 입력하세요");
+let roomNumber = prompt("채팅방 번호를 입력하세요");
+
+const eventSource = new EventSource(`http://localhost:8080/chat?roomNum=${roomNumber}`);
+
 eventSource.onmessage =( event) =>{
-    console.log(1, event);
     const data = JSON.parse(event.data);
-    console.log(2, data);
+    if(data.sender == username){
+        //발신 클래스
+    }
+    else{
+        //수신 클래스
+
+    }
     initSendMessage(data);
 }
 
@@ -33,7 +42,6 @@ async function addSendMessage(){
             "Content-Type":"application/json; charset=utf-8"
         }
     });
-    //console.log(response);
     let parseResponse = await response.json();
 
     chatOutgoingBox.className = "outgoing_msg"
